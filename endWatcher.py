@@ -129,7 +129,7 @@ def end_watcher():
     for x in matches:
         for y in matches_ended:
             utc_time = datetime.datetime.now(utc)
-            if ((float(utc_time.timestamp())-float(x[1])) > 1200)and ((float(utc_time.timestamp())-float(x[1])) < 25200) and (x[6] == y[5]) and \
+            if ((float(utc_time.timestamp())-float(y[1])) > 1200)and ((float(utc_time.timestamp())-float(y[1])) < 25200) and (x[6] == y[5]) and \
                     ((y[1].find(x[2]) > -1) and (y[1].find('-WIN') > -1)):
                 if tools.debug == 1:
                     print('Среди команд {} и {}, победила команда {}'.format(x[2], x[4], x[2]))
@@ -142,7 +142,7 @@ def end_watcher():
                 cur.close()
                 con.close()
 
-            if ((float(utc_time.timestamp())-float(x[1])) > 1200)and ((float(utc_time.timestamp())-float(x[1])) < 25200) and (x[6] == y[5]) and \
+            if ((float(utc_time.timestamp())-float(y[1])) > 1200)and ((float(utc_time.timestamp())-float(y[1])) < 25200) and (x[6] == y[5]) and \
                     ((y[3].find(x[4]) > -1) and (y[3].find('-WIN') > -1)):
                 if tools.debug == 1:
                     print('Среди команд {} и {}, победила команда {}'.format(x[2], x[4], x[4]))
