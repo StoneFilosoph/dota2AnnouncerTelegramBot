@@ -99,7 +99,7 @@ def match_timers():
 def main():
     connect_db()
     while True:
-        time.sleep(300)
+        time.sleep(311)
         match_timers()
 
 if __name__ == '__main__':

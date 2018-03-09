@@ -281,7 +281,7 @@ def main():
 
     while True:
 
-        time.sleep(5)
+        time.sleep(212)
         readyToAnnounce()
         announced()
         ready_to_start()
