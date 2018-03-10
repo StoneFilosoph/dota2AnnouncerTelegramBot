@@ -31,5 +31,5 @@ def zone_from_timestamp(stamp,zone='UTC'):
     from_timestamp = datetime.datetime.fromtimestamp(float(stamp)).strftime('%Y-%m-%d %H:%M:%S')
     tzone = pytz.timezone(zone)
     convert = datetime.datetime.strptime(from_timestamp,'%Y-%m-%d %H:%M:%S')
-    convert2 = convert.replace(tzinfo=pytz.utc).astimezone(tz=tzone)
+    convert2 = convert.replace(tzinfo=pytz.timezone('Etc/GMT')).astimezone(tz=tzone)
     return convert2.strftime('%Y-%m-%d %H:%M:%S')
