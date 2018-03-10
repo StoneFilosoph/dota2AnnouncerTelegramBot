@@ -32,4 +32,4 @@ def zone_from_timestamp(stamp,zone='UTC'):
     tzone = pytz.timezone(zone)
     convert = datetime.datetime.strptime(from_timestamp,'%Y-%m-%d %H:%M:%S')
     convert2 = convert.replace(tzinfo=pytz.utc).astimezone(tz=tzone)
-    return convert2
+    return convert2.strftime('%Y-%m-%d %H:%M:%S')
