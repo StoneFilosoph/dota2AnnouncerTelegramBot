@@ -53,7 +53,7 @@ def readyToAnnounce():
         teamredact2 = (''.join(str(team_1) for team_1 in team_2))
         times = str(res[1])
 
-        t = (tools.zone_from_timestamp(times))
+        t = (tools.zone_from_timestamp(times, 'Etc/GMT-3'))
         t2 = (t[10:-3])
 
         result = result + "В {} играют команды \n--|{}|-- VS --|{}|--\n\n".format(t2, teamredact1, teamredact2)
@@ -281,7 +281,7 @@ def main():
 
     while True:
 
-        time.sleep(212)
+        time.sleep(212) #212
         readyToAnnounce()
         announced()
         ready_to_start()
