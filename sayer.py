@@ -44,6 +44,7 @@ def readyToAnnounce():
     a = cur.fetchall()
     matches = []
     result = ""
+    org = ""
     for x in a:
         matches.append(x)
         res = matches[-1]
@@ -52,37 +53,29 @@ def readyToAnnounce():
         team_2 = str(res[4])
         teamredact2 = (''.join(str(team_1) for team_1 in team_2))
         times = str(res[1])
+        orgn = str(res[6])
 
         t = (tools.zone_from_timestamp(times, 'Etc/GMT-3'))
         t2 = (t[10:-3])
 
-        result = result + "В {} играют команды \n--|{}|-- VS --|{}|--\n\n".format(t2, teamredact1, teamredact2)
+        result = result + "В{} играют команды:" \
+                          " \n|{}|--- VS ---|{}|\nTournament: {}\n\n".format(t2, teamredact1, teamredact2, orgn)
 
     if a == []:
-        if tools.debug == 0:
+        if tools.debug == 1:
             print('1. Ничего не отправлено, нет матчей в статусе readyToAnnounce', result)
 
     else:
         bot.send_message(misc.CHANNEL_NAME, "Составляем список матчей на сегодня...")
         time.sleep(2)
+        bot.send_message(misc.CHANNEL_NAME, org)
+        time.sleep(1)
         bot.send_message(misc.CHANNEL_NAME, result)
-        if tools.debug == 0:
+        if tools.debug == 1:
             print("1. Отправлено в канал, все матчи на сегодня:\n", result)
 
     cur.close()
     con.close()
-
-
-# def update_to_announced():
-#
-#     # connect_db()
-#     # con = sqlite3.connect('dota2lounge.db')
-#     cur = con.cursor()
-#     sql = """ UPDATE DAY SET status = 'announced' WHERE status = 'readyToAnnounce' """
-#     cur.execute(sql)
-#     # con.commit()
-#     cur.close()
-#     # con.close()
 
 
 def announced():
@@ -95,7 +88,7 @@ def announced():
     matches = []
     for x in a:
         matches.append(x)
-    if tools.debug == 0:
+    if tools.debug == 1:
         print("2. Матчи в статусе announced:", matches)
 
     cur.close()
@@ -115,7 +108,7 @@ def ready_to_start():
     matches = []
     for x in a:
         matches.append(x)
-    if tools.debug == 0:
+    if tools.debug == 1:
         print("3. Отправлено в канал, начинаются матчи(readyToStart):", matches)
 
     for x in a:
@@ -123,20 +116,6 @@ def ready_to_start():
 
     cur.close()
     con.close()
-
-
-# def update_to_started():
-#
-#     # connect_db()
-#     # con = sqlite3.connect('dota2lounge.db')
-#     cur = con.cursor()
-#     sql = """ UPDATE DAY SET status = 'started' WHERE status = 'readyToStart' """
-#     cur.execute(sql)
-#     # con.commit()
-#     cur.close()
-#     # con.close()
-#     if misc.debug == 0:
-#         print("4. Если были матчи readyToStart статус изменен на started ")
 
 
 def started():
@@ -149,7 +128,7 @@ def started():
     matches = []
     for x in a:
         matches.append(x)
-    if tools.debug == 0:
+    if tools.debug == 1:
         print("4. Матчи в статусе started:", matches)
 
     cur.close()
@@ -169,8 +148,7 @@ def ready_to_end():
     matches_ended = []
     for x in a:
         matches_ended.append(x)
-    debug = tools.debug
-    if debug == 0:
+    if tools.debug == 1:
         print("5. Результаты игры отправлены в канал:", matches_ended)
 
     for x in a:
@@ -180,18 +158,6 @@ def ready_to_end():
 
     cur.close()
     con.close()
-
-
-# def update_to_end():
-#
-#     # connect_db()
-#     # con = sqlite3.connect('dota2lounge.db')
-#     cur = con.cursor()
-#     sql = """ UPDATE DAY SET status = 'end' WHERE status = 'readyToEnd' """
-#     cur.execute(sql)
-#     # con.commit()
-#     cur.close()
-#     # con.close()
 
 
 def updater():
@@ -204,13 +170,13 @@ def updater():
     a = cur.fetchall()
     matches_ended = []
     if a == []:
-        if tools.debug == 0:
+        if tools.debug == 1:
             print("6. Нет матчей, readyToAnnounce - статус не меняем:", matches_ended)
 
     else:
         for x in a:
             matches_ended.append(x)
-        if tools.debug == 0:
+        if tools.debug == 1:
             print("6. Смена статуса на announced:", matches_ended)
         sql = """ UPDATE DAY SET status = 'announced' WHERE status = 'readyToAnnounce' """
         cur.execute(sql)
@@ -221,12 +187,12 @@ def updater():
     a = cur.fetchall()
     matches_ended = []
     if a == []:
-        if tools.debug == 0:
+        if tools.debug == 1:
             print("7. Нет матчей, readyToStart - статус не меняем:", matches_ended)
     else:
         for x in a:
             matches_ended.append(x)
-        if tools.debug == 0:
+        if tools.debug == 1:
             print("7. Смена статуса на started:", matches_ended)
         sql = """ UPDATE DAY SET status = 'started' WHERE status = 'readyToStart' """
         cur.execute(sql)
@@ -237,12 +203,12 @@ def updater():
     a = cur.fetchall()
     matches_ended = []
     if a == []:
-        if tools.debug == 0:
+        if tools.debug == 1:
             print("8. Нет матчей, readyToEnd - статус не меняем:", matches_ended)
     else:
         for x in a:
             matches_ended.append(x)
-        if tools.debug == 0:
+        if tools.debug == 1:
             print("8. Смена статуса на end:", matches_ended)
         sql = """ UPDATE DAY SET status = 'end' WHERE status = 'readyToEnd' """
         cur.execute(sql)
@@ -261,13 +227,13 @@ def del_matches_end():
     a = cur.fetchall()
     matches_ended = []
     if a == []:
-        if tools.debug == 0:
+        if tools.debug == 1:
             print("9. Нет матчей на удаление из базы:", matches_ended)
 
     else:
         for x in a:
             matches_ended.append(x)
-        if tools.debug == 0:
+        if tools.debug == 1:
             print("9. Удаление из базы прошедших матчей:", matches_ended)
         time.sleep(1)
         sql = """ DELETE FROM DAY WHERE status = 'end' """
@@ -281,7 +247,7 @@ def main():
 
     while True:
 
-        time.sleep(212) #212
+        time.sleep(212)
         readyToAnnounce()
         announced()
         ready_to_start()
@@ -289,7 +255,7 @@ def main():
         ready_to_end()
         updater()
         del_matches_end()
-        if tools.debug == 0:
+        if tools.debug == 1:
             print("______________________________________________________________________________________________цикл")
 
         continue
