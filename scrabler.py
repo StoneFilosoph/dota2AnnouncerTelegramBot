@@ -91,7 +91,7 @@ def parser_start_day(html):
 
     while counter != number_of_matches:
 
-        a = tools.unix_timestamp(match_time[counter],'Etc/GMT-2')
+        a = tools.unix_timestamp(match_time[counter],'Etc/GMT-3')
         b = teams_couple[counter * 2]
         c = teams_percents[counter * 2]
         d = teams_couple[counter * 2 + 1]
