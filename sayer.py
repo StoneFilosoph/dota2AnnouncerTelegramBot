@@ -4,7 +4,6 @@
 import sqlite3,time
 import misc,tools
 import bot
-import pytz, datetime
 
 
 def connect_db():
@@ -107,16 +106,14 @@ def ready_to_start():
     cur.execute('SELECT * FROM DAY WHERE (status = ?)', rts)
     a = cur.fetchall()
     matches = []
-
     for x in a:
         matches.append(x)
     if tools.debug == 1:
         print("3. Отправлено в канал, начинаются матчи(readyToStart):", matches)
-
     for x in a:
-        time.sleep(1)
+        time.sleep(2)
         bot.send_message(misc.CHANNEL_NAME, "Начинается игра: "
-                                            "\n|{}|-- VS --|{}|\n".format(x[2], x[4], bot.default_test()))
+                                            "\n|{}|-- VS --|{}|\n".format(x[2], x[4])), bot.callback()
 
     cur.close()
     con.close()
@@ -252,7 +249,6 @@ def main():
     while True:
 
         time.sleep(212)
-        time.sleep(1)
         readyToAnnounce()
         announced()
         ready_to_start()
@@ -264,44 +260,6 @@ def main():
             print("______________________________________________________________________________________________цикл")
 
         continue
-
-    # seconds_left = 1
-    # while seconds_left != 0:
-    #     readyToAnnounce()
-    #     print("выполнилась")
-    #     print(seconds_left)
-    #     seconds_left -= 1
-    #     time.sleep(1)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    # while True:
-
-        # time.sleep(212)
-        # readyToAnnounce()
-        # announced()
-        # ready_to_start()
-        # started()
-        # ready_to_end()
-        # updater()
-        # del_matches_end()
-        # if tools.debug == 1:
-        #     print("______________________________________________________________________________________________цикл")
-        #
-        # continue
 
 
 if __name__ == '__main__':
