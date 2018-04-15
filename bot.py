@@ -5,6 +5,7 @@ import requests
 import misc
 import telebot
 from telebot import types
+import twitcher
 
 
 token = misc.token
@@ -35,7 +36,7 @@ def send_message(chat_id, text=None):
 @bot.message_handler(content_types=["text"])
 def callback():
     keyboard = types.InlineKeyboardMarkup()
-    url_button = types.InlineKeyboardButton(text="Cсылка на Twitch", url="https://www.twitch.tv/")
+    url_button = types.InlineKeyboardButton(text='Ссылка на Twitch', url=twitcher.twitch_url())
     keyboard.add(url_button)
     msg_but = "Нажми на кнопку для просмотра, матча!"
     bot.send_message(misc.CHANNEL_NAME, msg_but, reply_markup=keyboard)

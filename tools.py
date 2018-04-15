@@ -8,6 +8,7 @@ debug = 0
 на выходе timestamp unix UTC  time
 """
 
+
 def unix_timestamp (timestring_or_datetime_object,timezone):
     """from ordinary time to unix timestamp(UTC)
 
@@ -22,6 +23,7 @@ def unix_timestamp (timestring_or_datetime_object,timezone):
     convert_timestamp = convert2.timestamp()
     return convert_timestamp
 
+
 def zone_from_timestamp(stamp,zone='UTC'):
     """from unix timestamp to UTC time
 
@@ -33,6 +35,3 @@ def zone_from_timestamp(stamp,zone='UTC'):
     convert = datetime.datetime.strptime(from_timestamp,'%Y-%m-%d %H:%M:%S')
     convert2 = convert.replace(tzinfo=pytz.timezone('Etc/GMT')).astimezone(tz=tzone)
     return convert2.strftime('%Y-%m-%d %H:%M:%S')
-
-
-# 1 комит

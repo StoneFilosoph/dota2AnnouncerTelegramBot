@@ -159,7 +159,5 @@ def main():
             new_day_grab()
 
 
-
-
 if __name__ == '__main__':
     main()
